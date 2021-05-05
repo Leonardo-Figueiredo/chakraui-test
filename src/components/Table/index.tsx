@@ -8,35 +8,12 @@ import {
   Td,
   TableCaption,
   Flex,
-  Center
+  HStack,
+  Button
 } from '@chakra-ui/react'
-import { FiAlertCircle } from 'react-icons/fi'
+import { FiEdit, FiUnlock } from 'react-icons/fi'
 
 const users = [
-  {
-    name: 'Kazap Developer',
-    cpf: '123.123.123-12'
-  },
-  {
-    name: 'Kazap Developer',
-    cpf: '123.123.123-12'
-  },
-  {
-    name: 'Kazap Developer',
-    cpf: '123.123.123-12'
-  },
-  {
-    name: 'Kazap Developer',
-    cpf: '123.123.123-12'
-  },
-  {
-    name: 'Kazap Developer',
-    cpf: '123.123.123-12'
-  },
-  {
-    name: 'Kazap Developer',
-    cpf: '123.123.123-12'
-  },
   {
     name: 'Kazap Developer',
     cpf: '123.123.123-12'
@@ -59,17 +36,25 @@ const users = [
   }
 ]
 
-const CustomTable: React.FC = () => {
+interface CustomTableProps {
+  editModalOnOpen(): void
+  unblockModalOnOpen(): void
+}
+
+const CustomTable: React.FC<CustomTableProps> = ({
+  editModalOnOpen,
+  unblockModalOnOpen
+}) => {
   return (
     <Flex
       bgColor="#fff"
       shadow="md"
       flex={1}
-      maxWidth="800px"
+      maxWidth="1200px"
       justifyContent="center"
       p={5}
     >
-      <Table bgColor="#FFF" maxWidth="600px" variant="simple">
+      <Table bgColor="#FFF" variant="simple">
         <TableCaption
           textAlign="left"
           fontSize="larger"
@@ -83,20 +68,40 @@ const CustomTable: React.FC = () => {
           <Tr>
             <Th>Nome</Th>
             <Th>CPF</Th>
-            <Th>Ação</Th>
+            <Th textAlign="center">Ação</Th>
           </Tr>
         </Thead>
+
         <Tbody>
           {users.map((user, index) => (
             <Tr key={index}>
-              <Td>{user.name}</Td>
-              <Td>{user.cpf}</Td>
-              <Td>
-                <FiAlertCircle color="#3e7650" />
+              <Td maxWidth="300px">{user.name}</Td>
+              <Td width="200px">{user.cpf}</Td>
+              <Td width="80px" textAlign="end">
+                <HStack>
+                  <Button
+                    p={1}
+                    variant="outline"
+                    size="sm"
+                    onClick={editModalOnOpen}
+                  >
+                    <FiEdit color="#3e7650" />
+                  </Button>
+                  <Button
+                    p={1}
+                    variant="outline"
+                    size="sm"
+                    onClick={unblockModalOnOpen}
+                  >
+                    <FiUnlock color="#3e7650" />
+                  </Button>
+                </HStack>
               </Td>
             </Tr>
           ))}
         </Tbody>
+
+        <Tfoot></Tfoot>
       </Table>
     </Flex>
   )

@@ -8,11 +8,21 @@ import {
   DrawerHeader,
   useDisclosure,
   Image,
-  Flex
+  Flex,
+  Divider,
+  Input,
+  InputGroup,
+  InputLeftElement
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 
-import { FiSidebar, FiLogOut, FiActivity, FiLock } from 'react-icons/fi'
+import {
+  FiSidebar,
+  FiLogOut,
+  FiActivity,
+  FiLock,
+  FiSearch
+} from 'react-icons/fi'
 import logo from '../../../public/assets/kakau_logo.svg'
 
 const SideBar: React.FC = () => {
@@ -34,11 +44,19 @@ const SideBar: React.FC = () => {
       >
         <DrawerContent>
           <DrawerHeader pt="10">
-            <Image width="150px" src={logo} />
+            <Image ml={3} width="150px" src={logo} />
             <DrawerCloseButton />
+            <Divider mt={8} />
           </DrawerHeader>
 
-          <DrawerBody mt={2}>
+          <DrawerBody>
+            <InputGroup mb={5}>
+              <InputLeftElement pointerEvents="none">
+                <FiSearch />
+              </InputLeftElement>
+              <Input />
+            </InputGroup>
+
             <Flex flexDirection="column">
               <Button
                 mb={2}
@@ -48,13 +66,24 @@ const SideBar: React.FC = () => {
               >
                 Dashboard
               </Button>
-              <Button size="sm" leftIcon={<FiLock />}>
+              <Button
+                isActive
+                size="sm"
+                variant="outline"
+                leftIcon={<FiLock />}
+              >
                 Bloqueados
               </Button>
             </Flex>
           </DrawerBody>
 
-          <DrawerFooter display="flex" justifyContent="center">
+          <DrawerFooter
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+          >
+            <Divider mb={4} />
+
             <Button
               width="100%"
               variant="outline"
